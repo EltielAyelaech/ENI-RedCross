@@ -4,17 +4,22 @@ public class GeneralistDoctor {
     private String lastName;
     private String firstName;
     private String phoneNumber;
+    private Address address;
+    private TimeSlot[] timeSlots;
 
     private static int rates = 25;
 
     public GeneralistDoctor(
         String lastName,
         String firstName,
-        String phoneNumber
+        String phoneNumber,
+        Address address
     ) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.timeSlots = new TimeSlot[15];
     }
 
     public void display() {
@@ -25,6 +30,24 @@ public class GeneralistDoctor {
             this.phoneNumber,
             GeneralistDoctor.rates
         );
+        System.out.println("Address:");
+        this.address.display();
+        System.out.println("Time slots:");
+        for (TimeSlot timeSlot : this.timeSlots) {
+            if (timeSlot != null) {
+                timeSlot.display();
+            }
+        }
+    }
+
+    public void addTimeSlot(TimeSlot timeSlot) {
+        for (int i = 0; i < this.timeSlots.length; i++) {
+            if (this.timeSlots[i] == null) {
+                this.timeSlots[i] = timeSlot;
+                return;
+            }
+        }
+        System.err.println("\033[31mOverbooked!\033[39m");
     }
 
     public String getLastName() {

@@ -12,6 +12,7 @@ public class Patient {
     private long socialSecurityNumber;
     private LocalDate birthDate;
     private String comments;
+    private Address address;
 
     public Patient(
         String lastName,
@@ -20,7 +21,8 @@ public class Patient {
         char sex,
         long socialSecurityNumber,
         LocalDate birthDate,
-        String comments
+        String comments,
+        Address address
     ) {
         this.lastName = lastName;
         this.firstName = firstName;
@@ -29,6 +31,7 @@ public class Patient {
         this.socialSecurityNumber = socialSecurityNumber;
         this.birthDate = birthDate;
         this.comments = comments;
+        this.address = address;
     }
 
     public void display() {
@@ -42,6 +45,8 @@ public class Patient {
             this.birthDate.format(DateTimeFormatter.ofPattern("LLLL d yyyy", new Locale("us"))),
             this.comments != null ? this.comments : "[no comments]"
         );
+        System.out.println("Address:");
+        this.address.display();
     }
 
     public String getLastName() {
