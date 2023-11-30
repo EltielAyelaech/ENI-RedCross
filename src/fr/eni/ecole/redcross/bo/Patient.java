@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import fr.eni.ecole.redcross.exception.ProgrammerException;
+import fr.eni.ecole.redcross.exception.UserException;
+
 public class Patient extends Person {
     private char sex;
     private long socialSecurityNumber;
@@ -19,17 +22,18 @@ public class Patient extends Person {
         LocalDate birthDate,
         String comments,
         Address address
-    ) {
+    ) throws UserException, ProgrammerException {
         super(
             lastName,
             firstName,
             phoneNumber,
             address
         );
-        this.sex = sex;
-        this.socialSecurityNumber = socialSecurityNumber;
-        this.birthDate = birthDate;
-        this.comments = comments;
+
+        this.setSex(sex);
+        this.setSocialSecurityNumber(socialSecurityNumber);
+        this.setBirthDate(birthDate);
+        this.setComments(comments);
     }
 
     @Override
@@ -75,7 +79,10 @@ public class Patient extends Person {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(char sex) throws UserException {
+        if (sex == 'f' || sex == 'm') sex = (char) (sex + 'A' - 'a');
+        if (sex != 'F' && sex != 'M') throw new UserException("the sex bust be either 'F' or 'M'");
+
         this.sex = sex;
     }
 
@@ -83,7 +90,9 @@ public class Patient extends Person {
         return socialSecurityNumber;
     }
 
-    public void setSocialSecurityNumber(long socialSecurityNumber) {
+    public void setSocialSecurityNumber(long socialSecurityNumber) throws UserException {
+        if (Long.toString(socialSecurityNumber).length() != 13) throw new UserException("the social security number must be 13 digits long");
+
         this.socialSecurityNumber = socialSecurityNumber;
     }
 
@@ -91,7 +100,11 @@ public class Patient extends Person {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(LocalDate birthDate) throws UserException {
+        if (birthDate == null) throw new UserException("the birth date is mandatory");
+        if (birthDate.compareTo(LocalDate.now()) > 0) throw new UserException("the birth date can't be after today");
+        if (birthDate.compareTo(LocalDate.of(1900, 1, 1)) < 0) throw new UserException("the birth date can't be before the 01/01/1900");
+
         this.birthDate = birthDate;
     }
 

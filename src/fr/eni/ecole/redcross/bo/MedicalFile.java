@@ -3,6 +3,9 @@ package fr.eni.ecole.redcross.bo;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import fr.eni.ecole.redcross.exception.ProgrammerException;
+import fr.eni.ecole.redcross.exception.UserException;
+
 public class MedicalFile {
     private int weight;
     private int size;
@@ -26,17 +29,17 @@ public class MedicalFile {
         LocalDate treatmentDate,
         Patient patient,
         Doctor doctor
-    ) {
-        this.weight = weight;
-        this.size = size;
-        this.tension = tension;
-        this.oxygenation = oxygenation;
-        this.pulse = pulse;
-        this.problem = problem;
-        this.prescription = prescription;
-        this.treatmentDate = treatmentDate;
-        this.patient = patient;
-        this.doctor = doctor;
+    ) throws UserException, ProgrammerException {
+        this.setWeight(weight);
+        this.setSize(size);
+        this.setTension(tension);
+        this.setOxygenation(oxygenation);
+        this.setPulse(pulse);
+        this.setProblem(problem);
+        this.setPrescription(prescription);
+        this.setTreatmentDate(treatmentDate);
+        this.setPatient(patient);
+        this.setDoctor(doctor);
     }
 
     @Override

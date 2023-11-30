@@ -4,6 +4,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import fr.eni.ecole.redcross.exception.ProgrammerException;
+import fr.eni.ecole.redcross.exception.UserException;
+
 public class TimeSlot {
     private LocalTime startTime;
     private int duration;
@@ -13,10 +16,10 @@ public class TimeSlot {
         LocalTime startTime,
         int duration,
         Doctor doctor
-    ) {
-        this.startTime = startTime;
-        this.duration = duration;
-        this.doctor = doctor;
+    ) throws UserException, ProgrammerException {
+        this.setStartTime(startTime);
+        this.setDuration(duration);
+        this.setDoctor(doctor);
 
         doctor.addTimeSlot(this);
     }
@@ -53,7 +56,9 @@ public class TimeSlot {
         return doctor;
     }
 
-    public void setDoctor(Doctor doctor) {
+    public void setDoctor(Doctor doctor) throws ProgrammerException {
+        if (doctor == null) throw new ProgrammerException("Doctor is mandatory");
+
         this.doctor = doctor;
     }
 

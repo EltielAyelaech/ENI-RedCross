@@ -2,24 +2,26 @@ package fr.eni.ecole.redcross.bo;
 
 import java.util.Arrays;
 
+import fr.eni.ecole.redcross.exception.ProgrammerException;
+import fr.eni.ecole.redcross.exception.UserException;
+
 public abstract class Doctor extends Person {
     protected TimeSlot[] timeSlots;
-    protected int rates;
+    protected int rates = 25;
 
     protected Doctor(
         String lastName,
         String firstName,
         String phoneNumber,
         Address address
-    ) {
+    ) throws UserException, ProgrammerException {
         super(
             lastName,
             firstName,
             phoneNumber,
             address
         );
-        this.timeSlots = new TimeSlot[15];
-        this.rates = 25;
+        this.setTimeSlots(new TimeSlot[15]);
     }
 
     public abstract void examine();
@@ -63,14 +65,14 @@ public abstract class Doctor extends Person {
         );
     }
 
-    public void addTimeSlot(TimeSlot timeSlot) {
+    public void addTimeSlot(TimeSlot timeSlot) throws ProgrammerException {
         for (int i = 0; i < this.timeSlots.length; i++) {
             if (this.timeSlots[i] == null) {
                 this.timeSlots[i] = timeSlot;
                 return;
             }
         }
-        System.err.println("\033[31mOverbooked!\033[39m");
+        throw new ProgrammerException("Overbooked!");
     }
 
     public TimeSlot[] getTimeSlots() {
@@ -85,7 +87,7 @@ public abstract class Doctor extends Person {
         return rates;
     }
 
-    public void setRates(int rates) {
+    public void setRates(int rates) throws UserException {
         this.rates = rates;
     }
     

@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import fr.eni.ecole.redcross.exception.ProgrammerException;
+import fr.eni.ecole.redcross.exception.UserException;
+
 public class Appointment {
     private TimeSlot timeSlot;
     private Patient patient;
@@ -13,10 +16,10 @@ public class Appointment {
         TimeSlot timeSlot,
         Patient patient,
         LocalDate date
-    ) {
-        this.timeSlot = timeSlot;
-        this.patient = patient;
-        this.date = date;
+    ) throws UserException, ProgrammerException {
+        this.setTimeSlot(timeSlot);
+        this.setPatient(patient);
+        this.setDate(date);
     }
 
     @Override
@@ -34,7 +37,9 @@ public class Appointment {
         return timeSlot;
     }
 
-    public void setTimeSlot(TimeSlot timeSlot) {
+    public void setTimeSlot(TimeSlot timeSlot) throws ProgrammerException {
+        if (timeSlot == null) throw new ProgrammerException("time slot is mandatory");
+        
         this.timeSlot = timeSlot;
     }
 
@@ -42,7 +47,9 @@ public class Appointment {
         return patient;
     }
 
-    public void setPatient(Patient patient) {
+    public void setPatient(Patient patient) throws ProgrammerException {
+        if (patient == null) throw new ProgrammerException("patient is mandatory");
+
         this.patient = patient;
     }
 
@@ -50,7 +57,9 @@ public class Appointment {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDate date) throws UserException {
+        if (date.compareTo(LocalDate.now()) < 0) throw new UserException("Can't book an appointment in the past!");
+
         this.date = date;
     }
 }

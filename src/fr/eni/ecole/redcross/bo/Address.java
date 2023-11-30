@@ -1,5 +1,8 @@
 package fr.eni.ecole.redcross.bo;
 
+import fr.eni.ecole.redcross.exception.ProgrammerException;
+import fr.eni.ecole.redcross.exception.UserException;
+
 public class Address {
     private String addressComplement;
     private int streetNumber;
@@ -15,13 +18,13 @@ public class Address {
         String streetName,
         int postalCode,
         String city
-    ) {
-        this.addressComplement = addressComplement;
-        this.streetNumber = streetNumber;
-        this.streetComplement = streetComplement;
-        this.streetName = streetName;
-        this.postalCode = postalCode;
-        this.city = city;
+    ) throws UserException, ProgrammerException {
+        this.setAddressComplement(addressComplement);
+        this.setStreetNumber(streetNumber);
+        this.setStreetComplement(streetComplement);
+        this.setStreetName(streetName);
+        this.setPostalCode(postalCode);
+        this.setCity(city);
     }
 
     public Address(
@@ -30,7 +33,7 @@ public class Address {
         String streetName,
         int postalCode,
         String city
-    ) {
+    ) throws UserException, ProgrammerException {
         this(
             null,
             streetNumber,
@@ -83,7 +86,9 @@ public class Address {
         return streetNumber;
     }
 
-    public void setStreetNumber(int streetNumber) {
+    public void setStreetNumber(int streetNumber) throws UserException {
+        if (streetNumber < 0) throw new UserException("the street number must be strictly positive");
+
         this.streetNumber = streetNumber;
     }
 
@@ -99,7 +104,9 @@ public class Address {
         return streetName;
     }
 
-    public void setStreetName(String streetName) {
+    public void setStreetName(String streetName) throws UserException {
+        if (streetName == null || streetName.equals("")) throw new UserException("the street name is mandatory");
+
         this.streetName = streetName;
     }
 
@@ -107,7 +114,9 @@ public class Address {
         return postalCode;
     }
 
-    public void setPostalCode(int postalCode) {
+    public void setPostalCode(int postalCode) throws UserException {
+        if (postalCode < 1000 || postalCode > 99999) throw new UserException("the postal code must be comprised between 1000 and 99999");
+
         this.postalCode = postalCode;
     }
 
@@ -115,7 +124,9 @@ public class Address {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(String city) throws UserException {
+        if (city == null || city.equals("")) throw new UserException("the city is mandatory");
+
         this.city = city;
     }
 }

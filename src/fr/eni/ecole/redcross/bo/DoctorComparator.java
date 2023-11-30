@@ -7,5 +7,4 @@ public class DoctorComparator implements Comparator<SpecialistDoctor> {
     public int compare(SpecialistDoctor doctor, SpecialistDoctor other) {
         return doctor.getSpecialty().compareTo(other.getSpecialty());
     }
-    
 }

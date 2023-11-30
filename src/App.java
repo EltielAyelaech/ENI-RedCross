@@ -1,3 +1,4 @@
+import fr.eni.ecole.redcross.exception.ProgrammerException;
 import fr.eni.ecole.redcross.test.*;
 
 public class App {
@@ -13,6 +14,10 @@ public class App {
         // TestSpecialty.main(args);
         // TestClass.main(args);
         // TestEssential.main(args);
-        TestAdvanced.main(args);
+        // TestAdvanced.main(args);
+        // TestEssentialP5.main(args);
+        TestExpectedP5.main(args);
+        // TestAdvancedP5.main(args);
+        // TestAdvanced2P5.main(args);
     }
 }

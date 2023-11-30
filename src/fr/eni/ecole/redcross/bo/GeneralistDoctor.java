@@ -1,12 +1,15 @@
 package fr.eni.ecole.redcross.bo;
 
+import fr.eni.ecole.redcross.exception.ProgrammerException;
+import fr.eni.ecole.redcross.exception.UserException;
+
 public class GeneralistDoctor extends Doctor {
     public GeneralistDoctor(
         String lastName,
         String firstName,
         String phoneNumber,
         Address address
-    ) {
+    ) throws UserException, ProgrammerException {
         super(
             lastName,
             firstName,

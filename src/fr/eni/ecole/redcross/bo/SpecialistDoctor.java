@@ -1,5 +1,8 @@
 package fr.eni.ecole.redcross.bo;
 
+import fr.eni.ecole.redcross.exception.ProgrammerException;
+import fr.eni.ecole.redcross.exception.UserException;
+
 public class SpecialistDoctor extends Doctor implements Comparable<SpecialistDoctor> {
     private String specialty;
 
@@ -10,15 +13,16 @@ public class SpecialistDoctor extends Doctor implements Comparable<SpecialistDoc
         Address address,
         String specialty,
         int rates
-    ) {
+    ) throws UserException, ProgrammerException {
         super(
             lastName,
             firstName,
             phoneNumber,
             address
         );
-        this.specialty = specialty;
-        this.rates = rates;
+
+        this.setSpecialty(specialty);
+        this.setRates(rates);
     }
 
     public SpecialistDoctor(
@@ -26,7 +30,7 @@ public class SpecialistDoctor extends Doctor implements Comparable<SpecialistDoc
         String firstName,
         String phoneNumber,
         Address address
-    ) {
+    ) throws UserException, ProgrammerException {
         super(
             lastName,
             firstName,
@@ -95,7 +99,15 @@ public class SpecialistDoctor extends Doctor implements Comparable<SpecialistDoc
         return specialty;
     }
 
-    public void setSpecialty(String specialty) {
+    public void setSpecialty(String specialty) throws UserException {
+        if (specialty == null || specialty.equals("")) throw new UserException("the specialty is mandatory");
+
         this.specialty = specialty;
+    }
+
+    public void setRates(int rates) throws UserException {
+        if (rates <= 25) throw new UserException("the rates must be above 25€");
+
+        super.setRates(rates);
     }
 }
