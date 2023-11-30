@@ -22,6 +22,12 @@ public abstract class Doctor extends Person {
         this.rates = 25;
     }
 
+    public abstract void examine();
+    public abstract void diagnose();
+    public abstract void treat();
+    public abstract void counsel();
+    public abstract void orient();
+
     public String toReducedString() {
         return String.format(
             String.join("\n",

@@ -12,6 +12,7 @@ public class App {
         // TestPerson.main(args);
         // TestSpecialty.main(args);
         // TestClass.main(args);
-        TestEssential.main(args);
+        // TestEssential.main(args);
+        TestAdvanced.main(args);
     }
 }

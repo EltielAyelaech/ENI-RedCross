@@ -6,6 +6,8 @@ public abstract class Person {
     protected String phoneNumber;
     protected Address address;
 
+    public static comparatorFullnameAscending = Comparator
+
     protected Person(
         String lastName,
         String firstName,
