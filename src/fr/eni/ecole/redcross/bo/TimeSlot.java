@@ -7,12 +7,12 @@ import java.util.Locale;
 public class TimeSlot {
     private LocalTime startTime;
     private int duration;
-    private GeneralistDoctor doctor;
+    private Doctor doctor;
 
     public TimeSlot(
         LocalTime startTime,
         int duration,
-        GeneralistDoctor doctor
+        Doctor doctor
     ) {
         this.startTime = startTime;
         this.duration = duration;
@@ -21,11 +21,12 @@ public class TimeSlot {
         doctor.addTimeSlot(this);
     }
 
-    public void display() {
+    @Override
+    public String toString() {
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm", new Locale("us"));
 
-        System.out.printf(
-            "%s - %s (%d minutes)\n",
+        return String.format(
+            "%s - %s (%d minutes)",
             this.startTime.format(timeFormat),
             this.startTime.plusMinutes(this.duration).format(timeFormat),
             this.duration
@@ -48,11 +49,11 @@ public class TimeSlot {
         this.duration = duration;
     }
 
-    public GeneralistDoctor getDoctor() {
+    public Doctor getDoctor() {
         return doctor;
     }
 
-    public void setDoctor(GeneralistDoctor doctor) {
+    public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
 

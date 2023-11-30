@@ -19,11 +19,15 @@ public class Appointment {
         this.date = date;
     }
 
-    public void display() {
-        System.out.printf("Appointment on %s ", this.date.format(DateTimeFormatter.ofPattern("LLLL d yyyy", new Locale("us"))));
-        this.timeSlot.display();
-        System.out.printf("with Dr. %s\nfor ", this.timeSlot.getDoctor().getLastName());
-        this.patient.display();
+    @Override
+    public String toString() {
+        return String.format(
+            "Appointment on %s %swith Dr. %s\nfor %s",
+            this.date.format(DateTimeFormatter.ofPattern("LLLL d yyyy", new Locale("us"))),
+            this.timeSlot,
+            this.timeSlot.getDoctor().getLastName(),
+            this.patient
+        );
     }
 
     public TimeSlot getTimeSlot() {

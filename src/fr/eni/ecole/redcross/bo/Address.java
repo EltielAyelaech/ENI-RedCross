@@ -41,15 +41,33 @@ public class Address {
         );
     }
 
-    public void display() {
-        System.out.printf(
-            "%s%d%s %s\n%05d %s\n",
-            this.addressComplement != null ? this.addressComplement + "\n" : "",
+    @Override
+    public String toString() {
+        if (this.addressComplement != null) {
+            return String.format(
+                String.join("\n",
+                    "%s",
+                    "%d%s %s",
+                    "%05d %s"
+                ),
+                this.addressComplement,
+                this.streetNumber,
+                this.streetComplement != null ? this.streetComplement : "",
+                this.streetName,
+                this.postalCode,
+                this.city
+            );
+        }
+        return String.format(
+            String.join("\n",
+                "%d%s %s",
+                "%05d %s"
+            ),
             this.streetNumber,
             this.streetComplement != null ? this.streetComplement : "",
             this.streetName,
             this.postalCode,
-            this.city.toUpperCase()
+            this.city
         );
     }
 

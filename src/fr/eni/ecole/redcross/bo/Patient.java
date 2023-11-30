@@ -4,15 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class Patient {
-    private String lastName;
-    private String firstName;
-    private String phoneNumber;
+public class Patient extends Person {
     private char sex;
     private long socialSecurityNumber;
     private LocalDate birthDate;
     private String comments;
-    private Address address;
 
     public Patient(
         String lastName,
@@ -24,29 +20,31 @@ public class Patient {
         String comments,
         Address address
     ) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.phoneNumber = phoneNumber;
+        super(
+            lastName,
+            firstName,
+            phoneNumber,
+            address
+        );
         this.sex = sex;
         this.socialSecurityNumber = socialSecurityNumber;
         this.birthDate = birthDate;
         this.comments = comments;
-        this.address = address;
     }
 
-    public void display() {
-        System.out.printf(
-            "%s %s\nPhone number: %s\nSex: %s\nSocial security number: %d\nDate of birth: %s\nComments: %s\n",
+    @Override
+    public String toString() {
+        return String.format(
+            "%s %s\nPhone number: %s\nSex: %s\nSocial security number: %d\nDate of birth: %s\nComments: %s\nAddress:\n%s",
             this.lastName.toUpperCase(),
             this.firstName,
             this.phoneNumber,
             this.sex == 'M' ? "Male" : "Female",
             this.socialSecurityNumber,
             this.birthDate.format(DateTimeFormatter.ofPattern("LLLL d yyyy", new Locale("us"))),
-            this.comments != null ? this.comments : "[no comments]"
+            this.comments != null ? this.comments : "[no comments]",
+            this.address
         );
-        System.out.println("Address:");
-        this.address.display();
     }
 
     public String getLastName() {
