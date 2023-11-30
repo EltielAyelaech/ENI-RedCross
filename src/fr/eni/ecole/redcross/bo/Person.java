@@ -1,12 +1,32 @@
 package fr.eni.ecole.redcross.bo;
 
+import java.util.Comparator;
+
 public abstract class Person {
     protected String lastName;
     protected String firstName;
     protected String phoneNumber;
     protected Address address;
 
-    public static comparatorFullnameAscending = Comparator
+    public static Comparator<Person> comparatorFullnameAscending = new Comparator<Person>() {
+        @Override
+        public int compare(Person that, Person other) {
+            String thatFullname = String.format(
+                "%s %s",
+                that.getLastName().toUpperCase(),
+                that.getFirstName()
+            );
+            String otherFullname = String.format(
+                "%s %s",
+                other.getLastName().toUpperCase(),
+                other.getFirstName()
+            );
+
+            return thatFullname.compareTo(otherFullname);
+        }
+    };
+
+    public static Comparator<Person> comparatorFullnameDescending = comparatorFullnameAscending.reversed();
 
     protected Person(
         String lastName,
