@@ -35,6 +35,15 @@ public abstract class Doctor extends Person {
 
     @Override
     public String toString() {
+        String timeSlotString = String.join(
+            "\n",
+            Arrays
+                .stream(this.timeSlots)
+                .filter(x -> x != null)
+                .map(Object::toString)
+                .toArray(String[]::new)
+        );
+
         return String.format(
             String.join("\n",
                 "%s",
@@ -44,14 +53,7 @@ public abstract class Doctor extends Person {
             ),
             super.toString(),
             this.rates,
-            String.join(
-                "\n",
-                Arrays
-                    .stream(this.timeSlots)
-                    .filter(x -> x != null)
-                    .map(Object::toString)
-                    .toArray(String[]::new)
-            )
+            timeSlotString.length() > 0 ? timeSlotString : "no time slots"
         );
     }
 

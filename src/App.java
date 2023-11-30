@@ -11,6 +11,7 @@ public class App {
         // TestAppointment.main(args);
         // TestPerson.main(args);
         // TestSpecialty.main(args);
-        TestClass.main(args);
+        // TestClass.main(args);
+        TestEssential.main(args);
     }
 }

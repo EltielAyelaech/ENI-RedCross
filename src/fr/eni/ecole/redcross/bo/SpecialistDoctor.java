@@ -1,6 +1,6 @@
 package fr.eni.ecole.redcross.bo;
 
-public class SpecialistDoctor extends Doctor {
+public class SpecialistDoctor extends Doctor implements Comparable<SpecialistDoctor> {
     private String specialty;
 
     public SpecialistDoctor(
@@ -19,6 +19,20 @@ public class SpecialistDoctor extends Doctor {
         );
         this.specialty = specialty;
         this.rates = rates;
+    }
+
+    public SpecialistDoctor(
+        String lastName,
+        String firstName,
+        String phoneNumber,
+        Address address
+    ) {
+        super(
+            lastName,
+            firstName,
+            phoneNumber,
+            address
+        );
     }
 
     @Override
@@ -47,6 +61,11 @@ public class SpecialistDoctor extends Doctor {
         );
     }
 
+    @Override
+    public int compareTo(SpecialistDoctor other) {
+        return this.rates - other.getRates();
+    }
+
     public String getSpecialty() {
         return specialty;
     }
@@ -54,5 +73,4 @@ public class SpecialistDoctor extends Doctor {
     public void setSpecialty(String specialty) {
         this.specialty = specialty;
     }
-    
 }
