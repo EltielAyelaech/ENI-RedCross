@@ -1,37 +1,37 @@
-package fr.eni.quelmedecin.test;
+package fr.eni.ecole.redcross.test;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import fr.eni.quelmedecin.bo.Adresse;
-import fr.eni.quelmedecin.bo.Creneau;
-import fr.eni.quelmedecin.bo.Medecin;
-import fr.eni.quelmedecin.bo.MedecinGeneraliste;
-import fr.eni.quelmedecin.bo.MedecinSpecialiste;
-import fr.eni.quelmedecin.bo.Patient;
-import fr.eni.quelmedecin.bo.Payer;
-import fr.eni.quelmedecin.bo.Personne;
-import fr.eni.quelmedecin.bo.Remboursement;
-import fr.eni.quelmedecin.bo.RendezVous;
-import fr.eni.quelmedecin.bo.Specialite;
-import fr.eni.quelmedecin.exception.ProgrammeurException;
-import fr.eni.quelmedecin.exception.UtilisateurException;
+import fr.eni.ecole.redcross.bo.Address;
+import fr.eni.ecole.redcross.bo.TimeSlot;
+import fr.eni.ecole.redcross.bo.Doctor;
+import fr.eni.ecole.redcross.bo.GeneralistDoctor;
+import fr.eni.ecole.redcross.bo.SpecialistDoctor;
+import fr.eni.ecole.redcross.bo.Patient;
+import fr.eni.ecole.redcross.bo.Payment;
+import fr.eni.ecole.redcross.bo.Person;
+import fr.eni.ecole.redcross.bo.Reimbursment;
+import fr.eni.ecole.redcross.bo.Appointment;
+import fr.eni.ecole.redcross.bo.Specialty;
+import fr.eni.ecole.redcross.exception.ProgrammerException;
+import fr.eni.ecole.redcross.exception.UserException;
 
-public class TestAvancé {
+public class TestAdvancedP6 {
 
-	public static void main(String[] args) {
-		Adresse sh= null, nio=null, lr=null;
-		Personne jean=null, adhemar=null;
-		Creneau c1=null;
-		RendezVous rdv= null;
+	public static void main(String[] args) throws ProgrammerException {
+		Address sh= null, nio=null, lr=null;
+		Person jean=null, adhemar=null;
+		TimeSlot c1=null;
+		Appointment rdv= null;
 		
 		System.out.println("__________________________ Adresses ______________________________");
 		//cas nominal
 		try {
-			sh = new Adresse("ZAC du Moulin Neuf", 2, "B", "rue Benjamin Franklin", 44800, "Saint Herblain");
-			nio = new Adresse(19, null, "avenue Léo Lagrange", 79000, "Niort");
-			lr = new Adresse(null, 18, "B", "rue des Fleurs", 17000, "La Rochelle");
-		} catch (UtilisateurException e) {
+			sh = new Address("ZAC du Moulin Neuf", 2, "B", "rue Benjamin Franklin", 44800, "Saint Herblain");
+			nio = new Address(19, null, "avenue Léo Lagrange", 79000, "Niort");
+			lr = new Address(null, 18, "B", "rue des Fleurs", 17000, "La Rochelle");
+		} catch (UserException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -40,89 +40,89 @@ public class TestAvancé {
 		try {
 			jean = new Patient("Dupond", "Jean", "0753428619",'M', 1921121920201l, LocalDate.of(1992, 11, 21), null, nio);
 			adhemar = new Patient("Pamamobe", "Adhémar", "0753428619", 'M', 1921121920201l, LocalDate.of(1992, 11, 21), null, lr);
-		} catch (UtilisateurException | ProgrammeurException e) {
+		} catch (UserException | ProgrammerException e) {
 			System.out.println(e.getMessage());
 		}
 
 		System.out.println("__________________________ Médecins géneralistes ______________________________");
-		Medecin melanie = null;
+		Doctor melanie = null;
 		//cas nominal
 		try {
-			melanie = new MedecinGeneraliste("Malalaniche", "Mélanie", "0228031728", sh, Remboursement.TFCM1);
-			c1 = new Creneau(LocalTime.of(9, 0), 15, melanie);
+			melanie = new GeneralistDoctor("Malalaniche", "Mélanie", "0228031728", sh, Reimbursment.TFCM1);
+			c1 = new TimeSlot(LocalTime.of(9, 0), 15, melanie);
 			System.out.println(melanie.toString());
 			
-		} catch (UtilisateurException | ProgrammeurException e) {
+		} catch (UserException | ProgrammerException e) {
 			System.out.println(e.getMessage());
 		}
 	
 		System.out.println("__________________________ Rendez-Vous ___________________________");
 		//cas nominal
 		try {
-			rdv = new RendezVous(c1, (Patient)adhemar, LocalDate.now().plusDays(10L));
+			rdv = new Appointment(c1, (Patient)adhemar, LocalDate.now().plusDays(10L));
 			System.out.println(rdv.toString());
-			if (c1.getMedecin() instanceof MedecinGeneraliste) {
-				MedecinGeneraliste m = (MedecinGeneraliste)c1.getMedecin();
-				Payer p = new Payer() {
+			if (c1.getDoctor() instanceof GeneralistDoctor) {
+				GeneralistDoctor m = (GeneralistDoctor)c1.getDoctor();
+				Payment p = new Payment() {
 				};
-				p.resteACharge(m);
+				p.reminderToBePaid(m);
 			}
-		} catch (UtilisateurException | ProgrammeurException e) {
+		} catch (UserException | ProgrammerException e) {
 			System.out.println(e.getMessage());
 		}
 
 		System.out.println("__________________________ Médecins spécialistes ______________________________");
 		//test medecin sans specialité
 		System.out.println("===== spécialite obligatoire ===== ");
-		Medecin edmond;
+		Doctor edmond;
 		try {
-			edmond = new MedecinSpecialiste("Bosapin", "Edmond", "0228031724", sh, null, 52, Remboursement.TVCM1);
+			edmond = new SpecialistDoctor("Bosapin", "Edmond", "0228031724", sh, null, 52, Reimbursment.TVCM1);
 			System.out.println(edmond);
-		} catch (UtilisateurException | ProgrammeurException e) {
+		} catch (UserException | ProgrammerException e) {
 			System.out.println(e.getMessage());
 		}
 		
 		//cas nominal
 		System.out.println("==== cas nominal ====");
-		MedecinSpecialiste celine=null;
-		Creneau c2= null, c3=null;
+		SpecialistDoctor celine=null;
+		TimeSlot c2= null, c3=null;
 		try {
-			celine = new MedecinSpecialiste("OCENSEMAIME", "Céline", "0748159263", sh, Specialite.CARDIO, 52, Remboursement.TVCM2);
+			celine = new SpecialistDoctor("OCENSEMAIME", "Céline", "0748159263", sh, Specialty.CARDIO, 52, Reimbursment.TVCM2);
 			System.out.println(celine);
-			c2 = new Creneau(LocalTime.of(15, 20), 20, celine);
+			c2 = new TimeSlot(LocalTime.of(15, 20), 20, celine);
 
-			edmond = new MedecinSpecialiste("Bosapin", "Edmond", "0228031724", sh, Specialite.OPHTALMO, 45, Remboursement.NCM2);
+			edmond = new SpecialistDoctor("Bosapin", "Edmond", "0228031724", sh, Specialty.OPHTALMO, 45, Reimbursment.NCM2);
 			System.out.println(edmond);
-			c3=new Creneau(LocalTime.of(11, 0), 20, edmond);
+			c3=new TimeSlot(LocalTime.of(11, 0), 20, edmond);
 
-		} catch (UtilisateurException | ProgrammeurException e) {
+		} catch (UserException | ProgrammerException e) {
 			System.out.println(e.getMessage());
 		}
 		
 		System.out.println("__________________________ rendez-vous __________________________");
 		//cas nominal
 		try {
-			rdv = new RendezVous(c2, (Patient)jean, LocalDate.now().plusMonths(3L));
+			rdv = new Appointment(c2, (Patient)jean, LocalDate.now().plusMonths(3L));
 			System.out.println(rdv.toString());
-			if (c2.getMedecin() instanceof MedecinSpecialiste) {
-				MedecinSpecialiste m = (MedecinSpecialiste)c2.getMedecin();
-				System.out.println("Specialité : "+m.getSpecialite().getLibelle()+" - "+m.getSpecialite().getSituationGeo());
-				Payer p = new Payer() {
+			if (c2.getDoctor() instanceof SpecialistDoctor) {
+				SpecialistDoctor m = (SpecialistDoctor)c2.getDoctor();
+				System.out.println("Specialité : "+m.getSpecialty().getLabel()+" - "+m.getSpecialty().getLocation());
+				Payment p = new Payment() {
 				};
-				p.resteACharge(m);
+				p.reminderToBePaid(m);
 			}
 			System.out.println("************************************************************");
-			rdv = new RendezVous(c3, (Patient)adhemar, LocalDate.now().plusMonths(3L));
+			rdv = new Appointment(c3, (Patient)adhemar, LocalDate.now().plusMonths(3L));
 			System.out.println(rdv.toString());
-			if (c2.getMedecin() instanceof MedecinSpecialiste) {
-				MedecinSpecialiste m = (MedecinSpecialiste)c3.getMedecin();
-				System.out.println("Specialité : "+m.getSpecialite().getLibelle()+" - "+m.getSpecialite().getSituationGeo());
-				Payer p = new Payer() {
+			if (c2.getDoctor() instanceof SpecialistDoctor) {
+				SpecialistDoctor m = (SpecialistDoctor)c3.getDoctor();
+				System.out.println("Specialité : "+m.getSpecialty().getLabel()+" - "+m.getSpecialty().getLocation());
+				Payment p = new Payment() {
 				};
-				p.resteACharge(m);
+				p.reminderToBePaid(m);
 			}
 			
-} catch (UtilisateurException | ProgrammeurException e) {
+} catch (UserException | ProgrammerException e) {
 			System.out.println(e.getMessage());
 		}
 		

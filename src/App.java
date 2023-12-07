@@ -21,7 +21,7 @@ public class App {
         // TestAdvanced2P5.main(args);
         // System.out.println("\033[33mé");
         // TestEssentialP6.main(args);
-        TestExpectedP6.main(args);
-        // TestAdvancedP6.main(args);
+        // TestExpectedP6.main(args);
+        TestAdvancedP6.main(args);
     }
 }
