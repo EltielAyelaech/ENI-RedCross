@@ -8,12 +8,14 @@ import fr.eni.ecole.redcross.exception.UserException;
 public abstract class Doctor extends Person {
     protected TimeSlot[] timeSlots;
     protected int rates = 25;
+    protected Reimbursment reimbursment;
 
     protected Doctor(
         String lastName,
         String firstName,
         String phoneNumber,
-        Address address
+        Address address,
+        Reimbursment reimbursment
     ) throws UserException, ProgrammerException {
         super(
             lastName,
@@ -21,6 +23,8 @@ public abstract class Doctor extends Person {
             phoneNumber,
             address
         );
+
+        this.setReimbursment(reimbursment);
         this.setTimeSlots(new TimeSlot[15]);
     }
 
@@ -57,11 +61,13 @@ public abstract class Doctor extends Person {
                 "%s",
                 "Rates: %s€",
                 "Time slots:",
+                "%s",
                 "%s"
             ),
             super.toString(),
             this.rates,
-            timeSlotString.length() > 0 ? timeSlotString : "no time slots"
+            timeSlotString.length() > 0 ? timeSlotString : "no time slots",
+            this.reimbursment.getLabel()
         );
     }
 
@@ -89,6 +95,14 @@ public abstract class Doctor extends Person {
 
     public void setRates(int rates) throws UserException {
         this.rates = rates;
+    }
+
+    public Reimbursment getReimbursment() {
+        return reimbursment;
+    }
+
+    public void setReimbursment(Reimbursment reimbursment) {
+        this.reimbursment = reimbursment;
     }
     
 }

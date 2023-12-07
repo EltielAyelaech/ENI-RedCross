@@ -16,9 +16,9 @@ import fr.eni.ecole.redcross.bo.Specialty;
 import fr.eni.ecole.redcross.exception.ProgrammerException;
 import fr.eni.ecole.redcross.exception.UserException;
 
-public class TestAttendu {
+public class TestExpectedP6 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ProgrammerException {
 		Address sh= null, nio=null, lr=null;
 		Person jean=null, adhemar=null;
 		TimeSlot c1=null;
@@ -62,8 +62,8 @@ public class TestAttendu {
 			System.out.println(rdv.toString());
 			if (c1.getDoctor() instanceof GeneralistDoctor) {
 				GeneralistDoctor m = (GeneralistDoctor)c1.getDoctor();
-				double remboursementAM =m.getTarif() * m.getRemboursement().getTaux();
-				double resteACharge= m.getTarif()-remboursementAM;
+				double remboursementAM =m.getRates() * m.getReimbursment().getRates();
+				double resteACharge= m.getRates()-remboursementAM;
 				System.out.println("remboursement Assurance Maladie : "+remboursementAM+" - reste à charge : "+resteACharge);
 			}
 		} catch (UserException | ProgrammerException e) {
@@ -105,9 +105,9 @@ public class TestAttendu {
 			System.out.println(rdv.toString());
 			if (c2.getDoctor() instanceof SpecialistDoctor) {
 				SpecialistDoctor m = (SpecialistDoctor)c2.getDoctor();
-				System.out.println("Specialité : "+m.getSpecialty().getLibelle()+" - "+m.getSpecialty().getSituationGeo());
-				double remboursementAM =m.getTarif() * m.getRemboursement().getTaux();
-				double resteACharge= m.getTarif()-remboursementAM;
+				System.out.println("Specialité : "+m.getSpecialty().getLabel()+" - "+m.getSpecialty().getLocation());
+				double remboursementAM =m.getRates() * m.getReimbursment().getRates();
+				double resteACharge= m.getRates()-remboursementAM;
 				System.out.println("remboursement Assurance Maladie : "+remboursementAM+" - reste à charge : "+resteACharge);
 			}
 			System.out.println("************************************************************");
@@ -115,9 +115,9 @@ public class TestAttendu {
 			System.out.println(rdv.toString());
 			if (c2.getDoctor() instanceof SpecialistDoctor) {
 				SpecialistDoctor m = (SpecialistDoctor)c3.getDoctor();
-				System.out.println("Specialité : "+m.getSpecialty().getLibelle()+" - "+m.getSpecialty().getSituationGeo());
-				double remboursementAM =m.getTarif() * m.getRemboursement().getTaux();
-				double resteACharge= m.getTarif()-remboursementAM;
+				System.out.println("Specialité : "+m.getSpecialty().getLabel()+" - "+m.getSpecialty().getLocation());
+				double remboursementAM =m.getRates() * m.getReimbursment().getRates();
+				double resteACharge= m.getRates()-remboursementAM;
 				System.out.println("remboursement Assurance Maladie : "+remboursementAM+" - reste à charge : "+resteACharge);
 			}
 			

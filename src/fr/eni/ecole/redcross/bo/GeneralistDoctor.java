@@ -8,13 +8,15 @@ public class GeneralistDoctor extends Doctor {
         String lastName,
         String firstName,
         String phoneNumber,
-        Address address
+        Address address,
+        Reimbursment reimbursment
     ) throws UserException, ProgrammerException {
         super(
             lastName,
             firstName,
             phoneNumber,
-            address
+            address,
+            reimbursment
         );
     }
 

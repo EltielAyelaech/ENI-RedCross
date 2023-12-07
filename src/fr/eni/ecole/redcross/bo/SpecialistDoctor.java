@@ -12,13 +12,15 @@ public class SpecialistDoctor extends Doctor implements Comparable<SpecialistDoc
         String phoneNumber,
         Address address,
         Specialty specialty,
-        int rates
+        int rates,
+        Reimbursment reimbursment
     ) throws UserException, ProgrammerException {
         super(
             lastName,
             firstName,
             phoneNumber,
-            address
+            address,
+            reimbursment
         );
 
         this.setSpecialty(specialty);
@@ -29,13 +31,15 @@ public class SpecialistDoctor extends Doctor implements Comparable<SpecialistDoc
         String lastName,
         String firstName,
         String phoneNumber,
-        Address address
+        Address address,
+        Reimbursment reimbursment
     ) throws UserException, ProgrammerException {
         super(
             lastName,
             firstName,
             phoneNumber,
-            address
+            address,
+            reimbursment
         );
     }
 
