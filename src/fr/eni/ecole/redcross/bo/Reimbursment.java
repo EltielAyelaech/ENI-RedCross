@@ -1,62 +1,35 @@
 package fr.eni.ecole.redcross.bo;
 
 public enum Reimbursment {
-    TFC,
-    TVC,
-    NC,
-    TFCM1,
-    TFCM2,
-    TVCM1,
-    TVCM2,
-    NCM1,
-    NCM2;
+    TFC("tfc", 1f),
+    TFCM1("tfc m1", TFC, 1f * TFC.getRates()),
+    TFCM2("tfc m2", TFC, 1f * TFC.getRates()),
+    TVC("tvc", 0.5f),
+    TVCM1("tvc m1", TVC, 0.5f * TVC.getRates()),
+    TVCM2("tvc m2", TVC, 0.75f * TVC.getRates()),
+    NC("nc", 0f),
+    NCM1("nc m1", NC, 0),
+    NCM2("nc m2", NC, 0.5f);
 
-    public double getRates() {
-        switch (this) {
-            case TFC:
-            case TFCM1:
-            case TFCM2:
-                return 1;
-            case TVC:
-            case TVCM1:
-            case TVCM2:
-                return 0.5;
-            case NC:
-            case NCM1:
-            case NCM2:
-                return 0;
-            default:
-                return -1;
-        }
+    private String label;
+    private double rates;
+    private Reimbursment parent = null;
+
+    private Reimbursment(String label, double rates) {
+        this(label, null, rates);
     }
 
-    public double getMutualRates() {
-        switch (this) {
-            case TFCM1:
-                return 1 * TFC.getRates();
-            case TFCM2:
-                return 1 * TFC.getRates();
-            case TVCM1:
-                return 0.5 * TVC.getRates();
-            case TVCM2:
-                return 0.75 * TVC.getRates();
-            case NCM1:
-                return 0 * NC.getRates();
-            case NCM2:
-                return 0.5;
-            default:
-                return -1;
-        }
+    private Reimbursment(String label, Reimbursment parent, double rates) {
+        this.setLabel(label);
+        this.setParent(parent);
+        this.setRates(rates);
     }
 
-    public String getLabel() {
-        switch (this) {
-            case TFC:
-                return "Tarif fixe conventionné";
-            case TVC:
-                return "Tarif variable conventionné";
-            default:
-                return "Non conventionné";
-        }
-    }
+    private void setLabel(String label) { this.label = label; }
+    private void setRates(double rates) { this.rates = rates; }
+    private void setParent(Reimbursment parent) { this.parent = parent; }
+
+    public String getLabel() { return this.label; }
+    public double getRates() { return this.rates; }
+    public Reimbursment getParent() { return this.parent; }
 }

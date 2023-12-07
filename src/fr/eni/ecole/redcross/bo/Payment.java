@@ -12,8 +12,16 @@ public class Payment {
     }
 
     public void reminderToBePaid(Doctor doctor) {
-        double cpamReimbursment = doctor.getReimbursment().getRates() * doctor.getRates();
-        double mutualReimbursment = doctor.getReimbursment().getMutualRates() * doctor.getRates();
+        double cpamReimbursment;
+        double mutualReimbursment;
+
+        if (doctor.getReimbursment().getParent() != null) {
+            cpamReimbursment = doctor.getReimbursment().getParent().getRates() * doctor.getRates();
+            mutualReimbursment = doctor.getReimbursment().getRates() * doctor.getRates();
+        } else {
+            cpamReimbursment = doctor.getReimbursment().getRates();
+            mutualReimbursment = 0;
+        }
 
         String format = String.format(
             "CPAM reimbursment: %.1f - Mutual reimbursment: %.1f - Reminder to be paid: %.1f",
@@ -26,8 +34,16 @@ public class Payment {
     }
 
     public static String reminderToBePaidToString(Doctor doctor) {
-        double cpamReimbursment = doctor.getReimbursment().getRates() * doctor.getRates();
-        double mutualReimbursment = doctor.getReimbursment().getMutualRates() * doctor.getRates();
+        double cpamReimbursment;
+        double mutualReimbursment;
+
+        if (doctor.getReimbursment().getParent() != null) {
+            cpamReimbursment = doctor.getReimbursment().getParent().getRates() * doctor.getRates();
+            mutualReimbursment = doctor.getReimbursment().getRates() * doctor.getRates();
+        } else {
+            cpamReimbursment = doctor.getReimbursment().getRates();
+            mutualReimbursment = 0;
+        }
 
         String format = String.format(
             "CPAM reimbursment: %.1f - Mutual reimbursment: %.1f - Reminder to be paid: %.1f",
@@ -41,8 +57,16 @@ public class Payment {
 
     public static double[] getReimbursments(Doctor doctor) {
         double[] reimbursments = new double[4];
-        double cpamReimbursment = doctor.getReimbursment().getRates() * doctor.getRates();
-        double mutualReimbursment = doctor.getReimbursment().getMutualRates() * doctor.getRates();
+        double cpamReimbursment;
+        double mutualReimbursment;
+
+        if (doctor.getReimbursment().getParent() != null) {
+            cpamReimbursment = doctor.getReimbursment().getParent().getRates() * doctor.getRates();
+            mutualReimbursment = doctor.getReimbursment().getRates() * doctor.getRates();
+        } else {
+            cpamReimbursment = doctor.getReimbursment().getRates();
+            mutualReimbursment = 0;
+        }
 
         cpamReimbursment = Payment.clamp(cpamReimbursment, 0, doctor.getRates());
         mutualReimbursment = Payment.clamp(mutualReimbursment, 0, doctor.getRates() - cpamReimbursment);
