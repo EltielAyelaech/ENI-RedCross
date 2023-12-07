@@ -4,14 +4,14 @@ import fr.eni.ecole.redcross.exception.ProgrammerException;
 import fr.eni.ecole.redcross.exception.UserException;
 
 public class SpecialistDoctor extends Doctor implements Comparable<SpecialistDoctor> {
-    private String specialty;
+    private Specialty specialty;
 
     public SpecialistDoctor(
         String lastName,
         String firstName,
         String phoneNumber,
         Address address,
-        String specialty,
+        Specialty specialty,
         int rates
     ) throws UserException, ProgrammerException {
         super(
@@ -95,12 +95,12 @@ public class SpecialistDoctor extends Doctor implements Comparable<SpecialistDoc
         return this.rates - other.getRates();
     }
 
-    public String getSpecialty() {
+    public Specialty getSpecialty() {
         return specialty;
     }
 
-    public void setSpecialty(String specialty) throws UserException {
-        if (specialty == null || specialty.equals("")) throw new UserException("the specialty is mandatory");
+    public void setSpecialty(Specialty specialty) throws UserException {
+        if (specialty == null) throw new UserException("the specialty is mandatory");
 
         this.specialty = specialty;
     }
