@@ -20,6 +20,21 @@ public class GeneralistDoctor extends Doctor {
         );
     }
 
+    public GeneralistDoctor(
+        String lastName,
+        String firstName,
+        String phoneNumber,
+        Address address
+    ) throws UserException, ProgrammerException {
+        super(
+            lastName,
+            firstName,
+            phoneNumber,
+            address,
+            null
+        );
+    }
+
     @Override
     public void examine() {
         System.out.println("The doctor proceeds with routine exams on the patients (wsh je suis pas medecin je connais pas ces termes)");        

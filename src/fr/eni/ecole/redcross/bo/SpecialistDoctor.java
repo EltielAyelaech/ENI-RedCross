@@ -32,6 +32,26 @@ public class SpecialistDoctor extends Doctor implements Comparable<SpecialistDoc
         String firstName,
         String phoneNumber,
         Address address,
+        Specialty specialty,
+        int rates
+    ) throws UserException, ProgrammerException {
+        super(
+            lastName,
+            firstName,
+            phoneNumber,
+            address,
+            null
+        );
+
+        this.setSpecialty(specialty);
+        this.setRates(rates);
+    }
+
+    public SpecialistDoctor(
+        String lastName,
+        String firstName,
+        String phoneNumber,
+        Address address,
         Reimbursment reimbursment
     ) throws UserException, ProgrammerException {
         super(

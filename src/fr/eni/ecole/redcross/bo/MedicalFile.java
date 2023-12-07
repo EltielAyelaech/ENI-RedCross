@@ -53,7 +53,8 @@ public class MedicalFile {
                 "Problem: %s",
                 "Prescription: %s",
                 "Treatment date: %s",
-                "Assigned generalist doctor: %s"
+                "Assigned generalist doctor: %s",
+                "%s"
             ),
             this.patient,
             this.weight,
@@ -64,7 +65,8 @@ public class MedicalFile {
             this.problem,
             this.prescription,
             this.treatmentDate.format(DateTimeFormatter.ofPattern("LLLL d yyyy")),
-            this.doctor.toReducedString()
+            this.doctor.toReducedString(),
+            Payment.reminderToBePaidToString(this.doctor)
         );
     }
 

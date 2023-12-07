@@ -3,7 +3,8 @@ package fr.eni.ecole.redcross.bo;
 public enum Specialty {
     ORL,
     CARDIO,
-    OPHTALMO;
+    OPHTALMO,
+    ANGIO;
 
     public String getLabel() {
         switch (this) {
